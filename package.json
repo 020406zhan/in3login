@@ -9,7 +9,7 @@
     "build": "vite build",
     "serve": "node dist/server.cjs"
   },
-  "output": "playground",
+  "output": "dist",
   "author": "",
   "license": "ISC",
   "dependencies": {
