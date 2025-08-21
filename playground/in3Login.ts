@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const APP_TOKEN = 'HFBKbSAqwa9NHWscfttcZ4FhnUe'
 const PERSONAL_BASE_TOKEN = 'pt-D3eHlTlIiYvoWI3MVclqddbbUZ1fiz9UZzn2mmiYAQAAAgCD9hNAj5WjYty7'
-const TABLEID = 'tblhDcK9SwhMgGGy'
+const TABLEID = 'tblA4weHVn8xvU3U'
 
 /**
  * 格式化日期
@@ -435,7 +435,7 @@ export async function in3login() {
   });
   // console.log(JSON.stringify(queryResp))
   const records = queryResp.data?.items || [];
-  console.log(JSON.stringify(records))
+  // console.log(JSON.stringify(records))
   if (records.length !== 1) {
     throw new Error("系统编码为IN3的记录数量有误");
   }
