@@ -3,9 +3,9 @@ import { BaseClient } from '@lark-base-open/node-sdk'
 
 import axios from 'axios'
 
-const APP_TOKEN = process.env['APP_TOKEN']
-const PERSONAL_BASE_TOKEN = process.env['PERSONAL_BASE_TOKEN']
-const TABLEID = process.env['TABLE_ID']
+const APP_TOKEN = 'HFBKbSAqwa9NHWscfttcZ4FhnUe'
+const PERSONAL_BASE_TOKEN = 'pt-D3eHlTlIiYvoWI3MVclqddbbUZ1fiz9UZzn2mmiYAQAAAgCD9hNAj5WjYty7'
+const TABLEID = 'tblhDcK9SwhMgGGy'
 
 /**
  * 格式化日期
