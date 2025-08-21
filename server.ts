@@ -1,19 +1,12 @@
 import express from 'express'
-import { searchAndReplace } from './playground/search_and_replace'
+import { in3login } from "./playground/in3Login"
 
 const app = express()
 const port = 3000
 
-// http trigger
-app.get('/search_and_replace', async (req, res) => {
-  await searchAndReplace('abc', '123');
-  res.send('success!!!')
-});
-
-
-app.get('/', async (req, res) => {
-  res.send('hello world')
-});
+app.get('/', async (req, res) =>{
+  await in3login()
+})
 
 app.listen(port, () => {
   // Code.....
