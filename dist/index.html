@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IN3 登录系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-width: 200px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            min-height: 20px;
+        }
+        
+        .status.loading {
+            background: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #bbdefb;
+        }
+        
+        .status.success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #1565c0;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IN3 登录系统</h1>
+        <p>点击下方按钮执行 IN3 系统自动登录</p>
+        
+        <button class="login-btn" onclick="performLogin()" id="loginBtn">
+            执行登录
+        </button>
+        
+        <div id="status" class="status"></div>
+        
+        <div class="footer">
+            飞书多维表格 × IN3 系统集成
+        </div>
+    </div>
+
+    <script>
+        async function performLogin() {
+            const btn = document.getElementById('loginBtn');
+            const status = document.getElementById('status');
+            
+            // 禁用按钮并显示加载状态
+            btn.disabled = true;
+            btn.textContent = '登录中...';
+            status.className = 'status loading';
+            status.innerHTML = '<span class="loading-spinner"></span>正在执行 IN3 登录...';
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    status.className = 'status success';
+                    status.innerHTML = '✅ 登录成功！已更新飞书表格记录';
+                } else {
+                    throw new Error(`登录失败: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('登录错误:', error);
+                status.className = 'status error';
+                status.innerHTML = `❌ 登录失败: ${error.message}`;
+            } finally {
+                // 恢复按钮状态
+                btn.disabled = false;
+                btn.textContent = '执行登录';
+                
+                // 3秒后清除状态
+                setTimeout(() => {
+                    if (status.className.includes('success') || status.className.includes('error')) {
+                        status.className = 'status';
+                        status.innerHTML = '';
+                    }
+                }, 3000);
+            }
+        }
+        
+        // 页面加载完成后的欢迎信息
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('IN3 登录系统已加载');
+        });
+    </script>
+</body>
+</html>
