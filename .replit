@@ -4,5 +4,24 @@ run = "npx vite-node --watch server.ts"
 localPort = 3000
 externalPort = 80
 
+[deployment]
+run = ["sh", "-c", "node dist/server.cjs"]
+build = ["sh", "-c", "npm run build"]
+
+[workflows]
+
+[[workflows.workflow]]
+name = "Build and Serve"
+author = 46397939
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run serve"
+
 # [nix]
 # channel = "stable-21_11"
