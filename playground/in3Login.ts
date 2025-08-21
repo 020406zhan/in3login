@@ -435,7 +435,7 @@ export async function in3login() {
   });
   // console.log(JSON.stringify(queryResp))
   const records = queryResp.data?.items || [];
-  // console.log(JSON.stringify(records))
+  console.log(JSON.stringify(records))
   if (records.length !== 1) {
     throw new Error("系统编码为IN3的记录数量有误");
   }
