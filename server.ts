@@ -14,7 +14,7 @@ app.use(express.static('.'))
 
 // 主页路由 - 返回 HTML 页面
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'))
+  res.sendFile(path.resolve('index.html'))
 })
 
 // 登录 API 接口
